@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers;
+use Artisaninweb\SoapWrapper\SoapWrapper;
+
+use Illuminate\Http\Request;
+
+class PaginaController extends Controller
+{
+    //
+    protected $soapWrapper;
+
+    public function __construct(SoapWrapper $soapWrapper)
+    {
+        $this->soapWrapper = $soapWrapper;
+        
+        $this->soapWrapper->add( 'Pagina', function($service){
+    
+            $service
+            ->wsdl( 'http://comunimex.lat/TestingWSOperacionesUnificadas/OperacionesUnificadas.asmx?WSDL' )
+            ->trace( TRUE );
+    
+        });
+
+    }
+    
+    public function getPlanteles(){
+    
+        $planteles = $this->soapWrapper->call('Pagina.ObtenerCatalogoPlanteles');
+
+        if(!$planteles){
+            return response()->json(['messagge' => 'error']);
+        }else {
+
+            return $planteles->ObtenerCatalogoPlantelesResult->PlantelesDTO;
+        }
+        
+    }
+
+    public function getNiveles( $plantel ){
+
+        //return $plantel;
+        $params = array(
+            "clavePlantel" => $plantel
+        );
+
+        $niveles = $this->soapWrapper->call('Pagina.ObtenerCatalogoNivelEscolar', [ $params ]);
+        if(!$$niveles){
+            return response()->json(['messagge' => 'error']);
+        }else {
+
+            return $niveles->ObtenerCatalogoNivelEscolarResult->NivelDTO;
+        }
+        
+
+    }
+
+    public function getPeriodos( $plantel ){
+
+        $params = array(
+            "clavePlantel" => $plantel
+        );
+
+        $periodos = $this->soapWrapper->call('Pagina.ObtenerCatalogoPeriodoEscolar', [ $params ]);
+        if(!$periodos){
+            return response()->json(['messagge' => 'error']);
+        }else {
+
+            return $periodos->ObtenerCatalogoPeriodoEscolarResult->PeriodosDTO;
+        }
+
+
+    }
+
+    public function getCarreras( $plantel, $nivel, $periodo){
+
+        $params = array(
+            "clavePlantel" => $plantel,
+            "claveNivel"   => $nivel,
+            "clavePeriodo" => $periodo
+        );
+
+        $carreras = $this->soapWrapper->call('Pagina.ObtenerCatalogoCarreras', [ $params ]);
+        if(!$carreras){
+            return response()->json(['messagge' => 'error']);
+        }else {
+            
+            return $carreras->ObtenerCatalogoCarrerasResult->CarerrasDTO;
+        }
+
+    }
+
+    public function getTurnos( $plantel, $nivel, $periodo, $carrera ){
+
+        $params = array(
+            "clavePlantel" => $plantel,
+            "claveNivel"   => $nivel,
+            "clavePeriodo" => $periodo,
+            "claveCarrera" => $carrera
+        );
+
+        $turnos = $this->soapWrapper->call('Pagina.ObtenerCatalogoTurnos', [ $params ]);
+        if(!$turnos){
+            return response()->json(['messagge' => 'error']);
+        }else {
+
+            return $turnos->ObtenerCatalogoTurnosResult->TurnosDTO;
+        }
+
+    }
+
+
+
+
+}
