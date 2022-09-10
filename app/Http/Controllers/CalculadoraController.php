@@ -22,4 +22,17 @@ class CalculadoraController extends Controller
         });
 
     }
+
+    public function getPromedios( $plantel ){
+
+        $promedios = $this->soapWrapper->call( 'Calculadora.ObtenerCatalogoPromedios');
+
+        if( !$promedios ){
+            return response()->json(['messagge' => 'error']);
+        }else {
+
+            return $promedios->ObtenerCatalogoPromediosResult->PromediosDTO;
+        }
+
+    }
 }
