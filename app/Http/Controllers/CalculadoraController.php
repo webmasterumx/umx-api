@@ -64,4 +64,12 @@ class CalculadoraController extends Controller
         return $detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO;
 
     }
+
+    public function updateProspectos( Request $request ){
+        
+        $params = $request->toArray();
+
+        $actualizaProspecto = $this->soapWrapper->call('Calculadora.ActualizaProspecto', [ $params ]);
+        return $actualizaProspecto->ActualizaProspectoResult->ActualizaProspectoDTO;
+    }
 }
