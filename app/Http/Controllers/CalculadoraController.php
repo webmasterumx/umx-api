@@ -23,16 +23,27 @@ class CalculadoraController extends Controller
 
     }
 
+    /**
+     * --El metodo obtener catalogo promedios no funciona actualmente 12-09-2022.
+     * --garbageCode
+     */
+    /*
     public function getPromedios( $plantel ){
 
-        $promedios = $this->soapWrapper->call( 'Calculadora.ObtenerCatalogoPromedios');
+        $params = array(
+            "PlantelId" => $plantel
+        );
+
+        $promedios = $this->soapWrapper->call('Calculadora.ObtenerCatalogoPromedios', [ $params ]);
 
         if( !$promedios ){
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return $promedios->ObtenerCatalogoPromediosResult->PromediosDTO;
+            //return $promedios->ObtenerCatalogoPromediosResult->PromediosDTO;    
+            return $promedios;
         }
 
     }
+    */
 }
