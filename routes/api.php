@@ -53,10 +53,7 @@ Route::controller( CalculadoraController::class )->group( function(){
 
     Route::post('calculadora/horarios', 'getHorarios');
     Route::post('calculadora/detalle-horario', 'getDetalleHorarios');
-
-    
-
-    
+    Route::post('calculadora/actualiza', 'updateProspectos');
 
 });
 
