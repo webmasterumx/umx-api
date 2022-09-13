@@ -5,7 +5,7 @@ use Artisaninweb\SoapWrapper\SoapWrapper;
 
 use Illuminate\Http\Request;
 
-class PaginaController extends Controller
+class OfertaController extends Controller
 {
     //
     protected $soapWrapper;
@@ -43,7 +43,7 @@ class PaginaController extends Controller
     }
 
     /**
-     * function to get niveles with params
+     * function to get niveles with params method
      * @param object of propieties from de WebService
      * 
      */
@@ -70,11 +70,9 @@ class PaginaController extends Controller
      * @param string $plantel, $nivel, $periodo, $carrera
      */
 
-    public function getPeriodos( $plantel ){
+    public function getPeriodos( Request $request){
 
-        $params = array(
-            "clavePlantel" => $plantel
-        );
+        $params = $request->toArray();
 
         $periodos = $this->soapWrapper->call('Pagina.ObtenerCatalogoPeriodoEscolar', [ $params ]);
         
@@ -88,13 +86,9 @@ class PaginaController extends Controller
 
     }
 
-    public function getCarreras( $plantel, $nivel, $periodo){
+    public function getCarreras( Request $request){
 
-        $params = array(
-            "clavePlantel" => $plantel,
-            "claveNivel"   => $nivel,
-            "clavePeriodo" => $periodo
-        );
+        $params = $request->toArray();
 
         $carreras = $this->soapWrapper->call('Pagina.ObtenerCatalogoCarreras', [ $params ]);
 
@@ -107,14 +101,9 @@ class PaginaController extends Controller
 
     }
 
-    public function getTurnos( $plantel, $nivel, $periodo, $carrera ){
+    public function getTurnos( Request $request){
 
-        $params = array(
-            "clavePlantel" => $plantel,
-            "claveNivel"   => $nivel,
-            "clavePeriodo" => $periodo,
-            "claveCarrera" => $carrera
-        );
+        $params = $request->toArray();
 
         $turnos = $this->soapWrapper->call('Pagina.ObtenerCatalogoTurnos', [ $params ]);
 
