@@ -24,7 +24,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(PaginaController::class)->group( function(){
 
     Route::get('pagina/planteles', 'getPlanteles');
-    Route::post('pagina/niveles/{plantel}', 'getNiveles')->where('plantel', '[2-5]+' );
+    /**
+     * reoute with params
+     * Route::post('pagina/niveles/{plantel}', 'getNiveles')->where('plantel', '[2-5]+' );
+     * 
+     */
+    // route with Reques method
+    Route::post('pagina/niveles', 'getNiveles');
     Route::post('pagina/periodos/{plantel}', 'getPeriodos')->where('plantel', '[2-5]+' );
     Route::post('pagina/carreras/{plantel}/{nivel}/{periodo}', 'getCarreras')->where([
         'plantel' => '[2-5]+',
@@ -46,6 +52,7 @@ Route::controller( CalculadoraController::class )->group( function(){
      */
 
     Route::post('calculadora/horarios', 'getHorarios');
+    Route::post('calculadora/detalle-horario', 'getDetalleHorarios');
 
     
 
