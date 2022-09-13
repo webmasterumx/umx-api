@@ -41,9 +41,11 @@ Route::controller(PaginaController::class)->group( function(){
 Route::controller( CalculadoraController::class )->group( function(){
 
     /**
-     * doesn't work the method
+     * the method for this route doesn't work
      * Route::post('calculadora/promedios/{plantel}', 'getPromedios')->whereNumber('plantel');
      */
+
+    Route::post('calculadora/horarios', 'getHorarios');
 
     
 
