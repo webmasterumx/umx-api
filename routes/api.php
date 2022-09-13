@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\PaginaController;
+use App\Http\Controllers\CalculadoraController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,6 +35,19 @@ Route::controller(PaginaController::class)->group( function(){
         'plantel' => '[2-5]+',
         'nivel'   => '[1-3]+',
     ])->whereNumber('perido')->whereNumber('carrera');
+
+});
+
+Route::controller( CalculadoraController::class )->group( function(){
+
+    /**
+     * doesn't work the method
+     * Route::post('calculadora/promedios/{plantel}', 'getPromedios')->whereNumber('plantel');
+     */
+
+    
+
+    
 
 });
 
