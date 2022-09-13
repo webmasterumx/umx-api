@@ -23,6 +23,11 @@ class PaginaController extends Controller
         });
 
     }
+
+    /**
+     * all of this functions
+     * @return array of objects
+     */
     
     public function getPlanteles(){
     
@@ -39,13 +44,14 @@ class PaginaController extends Controller
 
     public function getNiveles( $plantel ){
 
-        //return $plantel;
         $params = array(
             "clavePlantel" => $plantel
         );
 
+
         $niveles = $this->soapWrapper->call('Pagina.ObtenerCatalogoNivelEscolar', [ $params ]);
-        if(!$$niveles){
+
+        if(!$niveles){
             return response()->json(['messagge' => 'error']);
         }else {
 
@@ -55,6 +61,11 @@ class PaginaController extends Controller
 
     }
 
+    /**
+     * all functions above
+     * @param string $plantel, $nivel, $periodo, $carrera
+     */
+
     public function getPeriodos( $plantel ){
 
         $params = array(
@@ -62,6 +73,7 @@ class PaginaController extends Controller
         );
 
         $periodos = $this->soapWrapper->call('Pagina.ObtenerCatalogoPeriodoEscolar', [ $params ]);
+        
         if(!$periodos){
             return response()->json(['messagge' => 'error']);
         }else {
@@ -81,6 +93,7 @@ class PaginaController extends Controller
         );
 
         $carreras = $this->soapWrapper->call('Pagina.ObtenerCatalogoCarreras', [ $params ]);
+
         if(!$carreras){
             return response()->json(['messagge' => 'error']);
         }else {
@@ -100,6 +113,7 @@ class PaginaController extends Controller
         );
 
         $turnos = $this->soapWrapper->call('Pagina.ObtenerCatalogoTurnos', [ $params ]);
+
         if(!$turnos){
             return response()->json(['messagge' => 'error']);
         }else {
