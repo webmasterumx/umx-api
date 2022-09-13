@@ -42,11 +42,15 @@ class PaginaController extends Controller
         
     }
 
-    public function getNiveles( $plantel ){
+    /**
+     * function to get niveles with params
+     * @param object of propieties from de WebService
+     * 
+     */
 
-        $params = array(
-            "clavePlantel" => $plantel
-        );
+    public function getNiveles( Request $request){
+
+        $params = $request->toArray();
 
 
         $niveles = $this->soapWrapper->call('Pagina.ObtenerCatalogoNivelEscolar', [ $params ]);
