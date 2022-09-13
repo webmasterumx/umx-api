@@ -48,9 +48,20 @@ class CalculadoraController extends Controller
     */
 
     public function getHorarios( Request $request ){
+
         $params = $request->toArray();
 
         $horarios = $this->soapWrapper->call('Calculadora.ObtenerHorariosBecas', [ $params ]);
         return $horarios->ObtenerHorariosBecasResult->HorariosBecasDTO;
+
+    }
+
+    public function getDetalleHorarios( Request $request ){
+
+        $params = $request->toArray();
+
+        $detalleHorario = $this->soapWrapper->call('Calculadora.ObtenerDetalleHorarioBeca', [ $params ]);
+        return $detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO;
+
     }
 }
