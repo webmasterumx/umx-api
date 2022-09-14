@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SoapConnectModel;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class NuevoIngresoController extends Controller
 {
+
     protected $soapWrapper;
 
     public function __construct(SoapWrapper $soapWrapper){
@@ -26,11 +26,28 @@ class NuevoIngresoController extends Controller
     public function validaMatricula( Request $request ){
 
         $params = $request->toArray();
-        $valida = $this->soapWrapper->call('NuevoIngreso.ValidacionMatricula', [ $params ]);
 
-        return $valida;
+        $valida = $this->soapWrapper->call('NuevoIngreso.ValidacionMatricula', [ $params ] );
+        return $valida->ValidacionMatriculaResult->EntPrope;
 
-        
+    }
+
+    /**
+     * in this function
+     * @return object
+     * because the ws return a simple int
+     */
+
+    public function addBitacora( Request $request ){
+
+        $params = $request->toArray();
+
+        $bitacora = $this->soapWrapper->call('NuevoIngreso.BitacoraClic', [ $params ]);
+        $resultado = $bitacora->BitacoraClicResult;
+
+        return response()->json([
+            "resultado" => $resultado
+        ]);
     }
 
 
