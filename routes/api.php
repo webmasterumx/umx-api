@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CalculadoraController;
+use App\Http\Controllers\NuevoIngresoController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,6 +49,15 @@ Route::controller( CalculadoraController::class )->group( function(){
     Route::post('calculadora/horarios', 'getHorarios');
     Route::post('calculadora/detalle-horario', 'getDetalleHorarios');
     Route::post('calculadora/actualiza', 'updateProspectos');
+
+});
+
+Route::controller( NuevoIngresoController::class )->group( function(){
+
+    Route::post('ingreso/valida', 'validaMatricula');
+    Route::post('ingreso/bitacora', 'addBitacora');
+
+
 
 });
 
