@@ -28,15 +28,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['cors'])->controller(OfertaController::class)->group( function(){
-
-    // route with Reques method
-    Route::get('oferta/planteles', 'getPlanteles');
-    Route::post('oferta/niveles', 'getNiveles');
-    Route::post('oferta/periodos', 'getPeriodos');
-    Route::post('oferta/carreras', 'getCarreras');
-    Route::post('oferta/turnos', 'getTurnos');
-
+Route::middleware('cors')
+    ->controller(OfertaController::class)
+    ->group( function(){
+        // route with Reques method
+        Route::get('oferta/planteles', 'getPlanteles');
+        Route::post('oferta/niveles', 'getNiveles');
+        Route::post('oferta/periodos', 'getPeriodos');
+        Route::post('oferta/carreras', 'getCarreras');
+        Route::post('oferta/turnos', 'getTurnos');
 });
 
 Route::controller( CalculadoraController::class )->group( function(){
