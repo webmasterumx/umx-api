@@ -39,7 +39,9 @@ Route::middleware('cors')
         Route::post('oferta/turnos', 'getTurnos');
 });
 
-Route::controller( CalculadoraController::class )->group( function(){
+Route::middleware('cors')
+     ->controller( CalculadoraController::class )
+     ->group( function(){
 
     /**
      * the method for this route doesn't work
@@ -52,7 +54,9 @@ Route::controller( CalculadoraController::class )->group( function(){
 
 });
 
-Route::controller( NuevoIngresoController::class )->group( function(){
+Route::middleware('cors')
+     ->controller( NuevoIngresoController::class )
+     ->group( function(){
 
     Route::post('ingreso/valida', 'validaMatricula');
     Route::post('ingreso/bitacora', 'addBitacora');
