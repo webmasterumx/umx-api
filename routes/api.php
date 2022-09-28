@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OperacionesUnificadasController;
 use App\Http\Controllers\CalculadoraController;
 use App\Http\Controllers\NuevoIngresoController;
+use App\Http\Controllers\PreinscipcionController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,8 +70,13 @@ Route::middleware('cors')
     Route::post('ingreso/valida', 'validaMatricula');
     Route::post('ingreso/bitacora', 'addBitacora');
 
-
-
 });
 
+Route::middleware('cors')
+     ->controller( PreinscipcionController::class )
+     ->group( function(){
 
+        Route::post('preinscripcion/promociones', 'getPromociones');
+        Route::post('preinscripcion/agrega-prospecto', 'registraProspecto');
+        
+});
