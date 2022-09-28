@@ -1,10 +1,64 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Artisaninweb\SoapWrapper\SoapWrapper;
 use Illuminate\Http\Request;
 
-class PreinscipcionController extends Controller
-{
-    //
+class PreinscipcionController extends Controller{
+    
+    protected $soapWrapper;
+
+    public function __construct(SoapWrapper $soapWrapper){
+        $this->soapWrapper = $soapWrapper;
+        
+        $this->soapWrapper->add( 'Preinscripcion', function($service){
+    
+            $service
+            ->wsdl( 'http://comunimex.lat/TestingWSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL' )
+            ->trace( TRUE );
+    
+        });
+
+    }
+
+    /**
+     * @method POST
+     * @param array of ( clavePlantel, clavePeriodo, claveNivel, claveTurno)
+     * @return array of promociones
+     * 
+     */
+    public function getPromociones( Request $request ){
+
+        $params = $request->toArray();
+        $promociones = $this->soapWrapper->call('Preinscripcion.ObtenerImportePromocionesPreinscripcion', [ $params ]);
+
+        if( !$promociones ){
+            return response()->json(['messagge' => 'error']);
+        }else{
+
+            return $promociones->ObtenerImportePromocionesPreinscripcionResult;
+        }
+
+    }
+    
+    /**
+     * @method POST
+     * @param array of (prospecto)
+     * @return array of registro
+     * 
+     */
+    public function registraProspecto( Request $request ){
+
+        $params = $request->toArray();
+        $prospecto = $this->soapWrapper->call('Preinscripcion.RegistraProspectoCRMDesdePreinscripcionEnLinea', [ $params ]);
+
+        if( !$prospecto ) {
+            return response()->json(['messagge' => 'error']);
+        }else {
+            return $prospecto->RegistraProspectoCRMDesdePreinscripcionEnLineaResult;
+        }
+    }
+
+
+
 }
