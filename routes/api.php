@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\OperacionesUnificadasController;
 use App\Http\Controllers\CalculadoraController;
 use App\Http\Controllers\NuevoIngresoController;
 /*
@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('cors')
-    ->controller(OfertaController::class)
+    ->controller(OperacionesUnificadasController::class)
     ->group( function(){
         // route with Reques method
         Route::get('oferta/planteles', 'getPlanteles');
@@ -37,6 +37,14 @@ Route::middleware('cors')
         Route::post('oferta/periodos', 'getPeriodos');
         Route::post('oferta/carreras', 'getCarreras');
         Route::post('oferta/turnos', 'getTurnos');
+        Route::post('agrega-prospecto', 'addProspecto');
+        Route::post('verifica-prospecto', 'existeProspecto');
+        Route::get('estados', 'getEstados');
+        Route::post('municipios', 'getMunicipios');
+        Route::post('proyeccion', 'addProyeccion');
+        Route::post('dia-unimex', 'addDiaUnimex');
+        Route::post('prospectacion', 'addProspectacion');
+
 });
 
 Route::middleware('cors')
