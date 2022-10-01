@@ -29,8 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('cors')
-    ->controller(OperacionesUnificadasController::class)
+Route::controller(OperacionesUnificadasController::class)
     ->group( function(){
         // route with Reques method
         Route::get('oferta/planteles', 'getPlanteles');
