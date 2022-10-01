@@ -23,6 +23,11 @@ class NuevoIngresoController extends Controller
         });
     }
 
+    /**
+     * @method POST
+     * @param Request $request=array<string|int>(maticula,plantel)
+     * @return array<string, nom_alumno>
+     */
     public function validaMatricula( Request $request ){
 
         $params = $request->toArray();
@@ -33,9 +38,10 @@ class NuevoIngresoController extends Controller
     }
 
     /**
-     * in this function
-     * @return object
-     * because the ws return a simple int
+     * @method POST
+     * @param Request $request=array<string|int>(matricula, plantel, tipoclic)
+     * @return object<int>
+     * 
      */
 
     public function addBitacora( Request $request ){

@@ -23,7 +23,7 @@ class PreinscipcionController extends Controller{
 
     /**
      * @method POST
-     * @param array of ( clavePlantel, clavePeriodo, claveNivel, claveTurno)
+     * @param Request $request=array<string|int>(clavePlantel,clavePeriodo,claveNivel,claveTurno)
      * @return array of promociones
      * 
      */

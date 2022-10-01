@@ -47,6 +47,13 @@ class CalculadoraController extends Controller
     }
     */
 
+    
+    /**
+     * @method POST
+     * @param Request $request=array<string|int>(PlantelId,clavePeriodo,claveNivel,claveCarrera, promedio=0)
+     * @return array<object, HorariosBecasDTO>
+     * 
+     */
     public function getHorarios( Request $request ){
 
         $params = $request->toArray();
@@ -55,6 +62,12 @@ class CalculadoraController extends Controller
         return $horarios->ObtenerHorariosBecasResult->HorariosBecasDTO;
 
     }
+    /**
+     * @method POST
+     * @param Request $request=array<string|int>(PlantelId,claveCarrera,claveTurno,claveNivel,clavePeriodo,claveBeca,egresado)
+     * @return array<object, DetalleHorarioBecaDTO>
+     * 
+     */
 
     public function getDetalleHorarios( Request $request ){
 
@@ -64,6 +77,12 @@ class CalculadoraController extends Controller
         return $detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO;
 
     }
+    /**
+     * @method POST
+     * @param Request $request=array<string|int>(clavePeriodo,clavePlantel,claveNivel,claveCarrera,claveTurno,folioCRM)
+     * @return array<object, ActualizaProspectoDTO>
+     * 
+     */
 
     public function updateProspectos( Request $request ){
         
