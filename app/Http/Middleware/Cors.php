@@ -22,8 +22,10 @@ class Cors
             'Access-Control-Allow-Methods' => 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Headers' => '*'
         ];
-        
-        if($request->getMethod() == "OPTIONS"){
+
+        //return $request->getMethod();
+
+        if( $request->isMethod('OPTIONS') ){
             return response()->json('OK',200,$headers);
         }
         
