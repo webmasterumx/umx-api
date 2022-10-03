@@ -34,7 +34,7 @@ Route::middleware('cors')
     ->group( function(){
         // route with Reques method
         Route::get('oferta/planteles', 'getPlanteles');
-        Route::post('oferta/niveles', 'getNiveles');
+        Route::match((['options', 'post']),'oferta/niveles', 'getNiveles');
         Route::post('oferta/periodos', 'getPeriodos');
         Route::post('oferta/carreras', 'getCarreras');
         Route::post('oferta/turnos', 'getTurnos');
