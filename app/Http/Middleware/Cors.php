@@ -22,19 +22,23 @@ class Cors
             'Access-Control-Allow-Methods' => 'GET, POST, PUT, PATCH, DELETE, OPTIONS',
             'Access-Control-Allow-Headers' => '*'
         ];
+        
+        
+        return $next($request)
+        ->header('Access-Control-Allow-Origin', "*")
+        ->header('Access-Control-Allow-Methods', "HEAD, GET, POST, PUT, PATCH, DELETE, OPTIONS")
+        ->header('Access-Control-Allow-Headers', "X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization")
+        ->header('Content-Type', 'application/json');
+
 
 
         if( $request->isMethod('OPTIONS') ){
             //return response()->json('OK', 200, $headers); 
             return $next($request)
             ->header('Access-Control-Allow-Origin', "*")
-            ->header('Access-Control-Allow-Methods', "*")
-            ->header('Access-Control-Allow-Headers', "*");
+            ->header('Access-Control-Allow-Headers', "X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method,Access-Control-Request-Headers, Authorization")
+            ->header('HTTP/1.1 200 OK');
         }
         
-        return $next($request)
-        ->header('Access-Control-Allow-Origin', "*")
-        ->header('Access-Control-Allow-Methods', "*")
-        ->header('Access-Control-Allow-Headers', "*");
     }
 }
