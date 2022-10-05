@@ -29,22 +29,23 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('cors')
-    ->controller(OperacionesUnificadasController::class)
-    ->group( function(){
-        // route with Reques method
-        Route::get('oferta/planteles', 'getPlanteles');
-        Route::match((['options', 'post']),'oferta/niveles', 'getNiveles');
-        Route::post('oferta/periodos', 'getPeriodos');
-        Route::post('oferta/carreras', 'getCarreras');
-        Route::post('oferta/turnos', 'getTurnos');
-        Route::post('agrega-prospecto', 'addProspecto');
-        Route::post('verifica-prospecto', 'existeProspecto');
-        Route::get('estados', 'getEstados');
-        Route::post('municipios', 'getMunicipios');
-        Route::post('proyeccion', 'addProyeccion');
-        Route::post('dia-unimex', 'addDiaUnimex');
-        Route::post('prospectacion', 'addProspectacion');
+//Route::middleware('cors')
+Route::controller(OperacionesUnificadasController::class)->group( function(){
+    
+    // route with Reques method
+    Route::get('oferta/planteles', 'getPlanteles');
+    Route::match((['options', 'post']),'oferta/niveles', 'getNiveles');
+    Route::post('oferta/periodos', 'getPeriodos');
+    Route::post('oferta/carreras', 'getCarreras');
+    Route::post('oferta/turnos', 'getTurnos');
+    Route::post('agrega-prospecto', 'addProspecto');
+    Route::post('verifica-prospecto', 'existeProspecto');
+    Route::get('estados', 'getEstados');
+    Route::post('municipios', 'getMunicipios');
+    Route::post('proyeccion', 'addProyeccion');
+    Route::post('dia-unimex', 'addDiaUnimex');
+    Route::post('prospectacion', 'addProspectacion');
+    
 
 });
 
