@@ -30,11 +30,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Route::middleware('cors')
-Route::controller(OperacionesUnificadasController::class)->group( function(){
+Route::controller(OperacionesUnificadasController::class)->group(function(){
     
     // route with Reques method
     Route::get('oferta/planteles', 'getPlanteles');
-    Route::match((['options', 'post']),'oferta/niveles', 'getNiveles');
+    Route::any('oferta/niveles', 'getNiveles');
     Route::post('oferta/periodos', 'getPeriodos');
     Route::post('oferta/carreras', 'getCarreras');
     Route::post('oferta/turnos', 'getTurnos');
