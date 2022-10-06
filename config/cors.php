@@ -19,9 +19,9 @@ return [
     //'paths' => ['api/*'],
     //'paths' => ['api/*', 'public/*'],
 
-    'allowed_methods' => ['PUT, GET, HEAD, POST, PATCH, DELETE, CONNECT, OPTIONS'],
+    'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['ORIGIN'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
