@@ -38,7 +38,9 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return $planteles->ObtenerCatalogoPlantelesResult->PlantelesDTO;
+            return response()
+                ->json( $planteles->ObtenerCatalogoPlantelesResult->PlantelesDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
         
     }
@@ -60,9 +62,10 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return $niveles->ObtenerCatalogoNivelEscolarResult->NivelDTO;
-        }
-        
+            return response()
+                ->json( $niveles->ObtenerCatalogoNivelEscolarResult->NivelDTO)
+                ->header('Access-Control-Allow-Origin', '*');
+        }        
 
     }
 
@@ -81,7 +84,9 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return $periodos->ObtenerCatalogoPeriodoEscolarResult->PeriodosDTO;
+            return response()
+                ->json( $periodos->ObtenerCatalogoPeriodoEscolarResult->PeriodosDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
 
 
@@ -97,7 +102,9 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
             
-            return $carreras->ObtenerCatalogoCarrerasResult->CarerrasDTO;
+            return response()
+                ->json( $carreras->ObtenerCatalogoCarrerasResult->CarerrasDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
 
     }
@@ -112,7 +119,9 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return $turnos->ObtenerCatalogoTurnosResult->TurnosDTO;
+            return response()
+                ->json( $turnos->ObtenerCatalogoTurnosResult->TurnosDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
 
     }
@@ -130,7 +139,9 @@ class OperacionesUnificadasController extends Controller
         if( !$prospecto ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $prospecto->AgregarProspectoCRMResult;
+            return response()
+                ->json( $prospecto->AgregarProspectoCRMResult)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -148,7 +159,9 @@ class OperacionesUnificadasController extends Controller
         if( !$existeProspecto ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $existeProspecto->ExisteProspectoEnCRMResponse->ExisteProspectoEnCRMResult;
+            return response()
+                ->json( $existeProspecto->ExisteProspectoEnCRMResponse->ExisteProspectoEnCRMResult)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -164,7 +177,9 @@ class OperacionesUnificadasController extends Controller
         if( !$estados ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $estados->ObtenerCatalogoEstadosResult->EstadosDTO;
+            return response()
+                ->json( $estados->ObtenerCatalogoEstadosResult->EstadosDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -182,7 +197,9 @@ class OperacionesUnificadasController extends Controller
         if( !$municipios ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $municipios->ObtenerCatalogoMunicipiosResult->MunicipiosDTO;
+            return response()
+                ->json( $municipios->ObtenerCatalogoMunicipiosResult->MunicipiosDTO)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -202,7 +219,9 @@ class OperacionesUnificadasController extends Controller
         if( !$proyeccion ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $proyeccion->AgregarProyeccionProfesionalResult;
+            return response()
+                ->json( $proyeccion->AgregarProyeccionProfesionalResult)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -222,7 +241,9 @@ class OperacionesUnificadasController extends Controller
         if( !$diaU ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $diaU->AgregarDiaUnimexResult;
+            return response()
+                ->json( $diaU->AgregarDiaUnimexResult)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
@@ -242,7 +263,9 @@ class OperacionesUnificadasController extends Controller
         if( !$prospectacion ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $prospectacion->AgregarProspectacionResult;
+            return response()
+                ->json( $prospectacion->AgregarProspectacionResult)
+                ->header('Access-Control-Allow-Origin', '*');
         }
     }
 
