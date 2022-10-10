@@ -49,8 +49,8 @@ Route::controller(OperacionesUnificadasController::class)->group(function(){
 
 });
 
-Route::middleware('cors')
-     ->controller( CalculadoraController::class )
+Route::/*middleware('cors')
+     ->*/controller( CalculadoraController::class )
      ->group( function(){
 
     /**
@@ -64,8 +64,8 @@ Route::middleware('cors')
 
 });
 
-Route::middleware('cors')
-     ->controller( NuevoIngresoController::class )
+Route::/*middleware('cors')
+     ->*/controller( NuevoIngresoController::class )
      ->group( function(){
 
     Route::post('ingreso/valida', 'validaMatricula');
@@ -73,8 +73,8 @@ Route::middleware('cors')
 
 });
 
-Route::middleware('cors')
-     ->controller( PreinscipcionController::class )
+Route::/*middleware('cors')
+     ->*/controller( PreinscipcionController::class )
      ->group( function(){
 
         Route::post('preinscripcion/promociones', 'getPromociones');
