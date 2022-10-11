@@ -49,9 +49,7 @@ Route::controller(OperacionesUnificadasController::class)->group(function(){
 
 });
 
-Route::/*middleware('cors')
-     ->*/controller( CalculadoraController::class )
-     ->group( function(){
+Route::controller( CalculadoraController::class )->group( function(){
 
     /**
      * the method for this route doesn't work
@@ -64,18 +62,14 @@ Route::/*middleware('cors')
 
 });
 
-Route::/*middleware('cors')
-     ->*/controller( NuevoIngresoController::class )
-     ->group( function(){
+Route::controller( NuevoIngresoController::class )->group( function(){
 
     Route::post('ingreso/valida', 'validaMatricula');
     Route::post('ingreso/bitacora', 'addBitacora');
 
 });
 
-Route::/*middleware('cors')
-     ->*/controller( PreinscipcionController::class )
-     ->group( function(){
+Route::controller( PreinscipcionController::class )->group( function(){
 
         Route::post('preinscripcion/promociones', 'getPromociones');
         Route::post('preinscripcion/agrega-prospecto', 'registraProspecto');
