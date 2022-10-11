@@ -15,7 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', '*'],
+    //'paths' => ['http://192.168.1.123/soap-laravel/public/*', 'sanctum/csrf-cookie'],
+    'paths' => [
+        '*',
+        'https://api.unimexver.edu.mx/api/*'
+    ],
 
     'allowed_methods' => ['*'],
 
@@ -29,6 +33,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];
