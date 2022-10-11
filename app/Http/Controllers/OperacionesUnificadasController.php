@@ -38,9 +38,7 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return response()
-                ->json( $planteles->ObtenerCatalogoPlantelesResult->PlantelesDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $planteles->ObtenerCatalogoPlantelesResult->PlantelesDTO);
         }
         
     }
@@ -53,18 +51,17 @@ class OperacionesUnificadasController extends Controller
 
     public function getNiveles( Request $request){
 
-        $params = $request->toArray();
+        //return  $request->toArray('clavePlantel');
+        //$plantel =  $request->json('clavePlantel');
+        $params= json_decode($request->getContent(), true);
 
-
-        $niveles = $this->soapWrapper->call('OU.ObtenerCatalogoNivelEscolar', [ $params ]);
+        $niveles = $this->soapWrapper->call('OU.ObtenerCatalogoNivelEscolar', [$params]);
 
         if(!$niveles){
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return response()
-                ->json( $niveles->ObtenerCatalogoNivelEscolarResult->NivelDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $niveles->ObtenerCatalogoNivelEscolarResult->NivelDTO);
         }        
 
     }
@@ -75,8 +72,8 @@ class OperacionesUnificadasController extends Controller
      */
 
     public function getPeriodos( Request $request){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $periodos = $this->soapWrapper->call('OU.ObtenerCatalogoPeriodoEscolar', [ $params ]);
         
@@ -84,17 +81,15 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return response()
-                ->json( $periodos->ObtenerCatalogoPeriodoEscolarResult->PeriodosDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $periodos->ObtenerCatalogoPeriodoEscolarResult->PeriodosDTO);
         }
 
 
     }
 
     public function getCarreras( Request $request){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $carreras = $this->soapWrapper->call('OU.ObtenerCatalogoCarreras', [ $params ]);
 
@@ -102,16 +97,14 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
             
-            return response()
-                ->json( $carreras->ObtenerCatalogoCarrerasResult->CarerrasDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $carreras->ObtenerCatalogoCarrerasResult->CarerrasDTO);
         }
 
     }
 
     public function getTurnos( Request $request){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $turnos = $this->soapWrapper->call('OU.ObtenerCatalogoTurnos', [ $params ]);
 
@@ -119,9 +112,7 @@ class OperacionesUnificadasController extends Controller
             return response()->json(['messagge' => 'error']);
         }else {
 
-            return response()
-                ->json( $turnos->ObtenerCatalogoTurnosResult->TurnosDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $turnos->ObtenerCatalogoTurnosResult->TurnosDTO);
         }
 
     }
@@ -132,16 +123,14 @@ class OperacionesUnificadasController extends Controller
      * @return array
      */
     public function addProspecto( Request $request ){
-        
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);        
+        //$params = $request->toArray();
         $prospecto = $this->soapWrapper->call('OU.AgregarProspectoCRM', [ $params ]);
 
         if( !$prospecto ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $prospecto->AgregarProspectoCRMResult)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $prospecto->AgregarProspectoCRMResult);
         }
     }
 
@@ -152,16 +141,14 @@ class OperacionesUnificadasController extends Controller
      */
 
     public function existeProspecto( Request $request ){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
         $existeProspecto = $this->soapWrapper->call('OU.ExisteProspectoEnCRM', [ $params ]);
 
         if( !$existeProspecto ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $existeProspecto->ExisteProspectoEnCRMResponse->ExisteProspectoEnCRMResult)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $existeProspecto->ExisteProspectoEnCRMResponse->ExisteProspectoEnCRMResult);
         }
     }
 
@@ -177,9 +164,7 @@ class OperacionesUnificadasController extends Controller
         if( !$estados ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $estados->ObtenerCatalogoEstadosResult->EstadosDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $estados->ObtenerCatalogoEstadosResult->EstadosDTO);
         }
     }
 
@@ -189,17 +174,15 @@ class OperacionesUnificadasController extends Controller
      * @return array of municipios
      */
     public function getMunicipios( Request $request ){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $municipios = $this->soapWrapper->call('OU.ObtenerCatalogoMunicipios', [ $params ]);
 
         if( !$municipios ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $municipios->ObtenerCatalogoMunicipiosResult->MunicipiosDTO)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $municipios->ObtenerCatalogoMunicipiosResult->MunicipiosDTO);
         }
     }
 
@@ -211,17 +194,15 @@ class OperacionesUnificadasController extends Controller
      */
 
     public function addProyeccion( Request $request ){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $proyeccion = $this->soapWrapper->call('OU.AgregarProyeccionProfesional', [ $params ]);
 
         if( !$proyeccion ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $proyeccion->AgregarProyeccionProfesionalResult)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $proyeccion->AgregarProyeccionProfesionalResult);
         }
     }
 
@@ -233,17 +214,15 @@ class OperacionesUnificadasController extends Controller
      */
 
     public function addDiaUnimex( Request $request ){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $diaU = $this->soapWrapper->call('OU.AgregarDiaUnimex', [ $params ]);
 
         if( !$diaU ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $diaU->AgregarDiaUnimexResult)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $diaU->AgregarDiaUnimexResult);
         }
     }
 
@@ -255,17 +234,15 @@ class OperacionesUnificadasController extends Controller
      */
 
     public function addProspectacion( Request $request ){
-
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
 
         $prospectacion = $this->soapWrapper->call('OU.AgregarProspectacion', [ $params ]);
 
         if( !$prospectacion ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return response()
-                ->json( $prospectacion->AgregarProspectacionResult)
-                ->header('Access-Control-Allow-Origin', '*');
+            return response()->json( $prospectacion->AgregarProspectacionResult);
         }
     }
 
