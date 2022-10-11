@@ -30,7 +30,9 @@ class NuevoIngresoController extends Controller
      */
     public function validaMatricula( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+
+        //$params = $request->toArray();
 
         $valida = $this->soapWrapper->call('NuevoIngreso.ValidacionMatricula', [ $params ] );
         return $valida->ValidacionMatriculaResult->EntPrope;
@@ -46,7 +48,9 @@ class NuevoIngresoController extends Controller
 
     public function addBitacora( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+
+        //$params = $request->toArray();
 
         $bitacora = $this->soapWrapper->call('NuevoIngreso.BitacoraClic', [ $params ]);
         $resultado = $bitacora->BitacoraClicResult;

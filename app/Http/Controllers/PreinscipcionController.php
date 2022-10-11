@@ -29,14 +29,15 @@ class PreinscipcionController extends Controller{
      */
     public function getPromociones( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
         $promociones = $this->soapWrapper->call('Preinscripcion.ObtenerImportePromocionesPreinscripcion', [ $params ]);
 
         if( !$promociones ){
             return response()->json(['messagge' => 'error']);
         }else{
 
-            return $promociones->ObtenerImportePromocionesPreinscripcionResult;
+            return response()->json( $promociones->ObtenerImportePromocionesPreinscripcionResult );
         }
 
     }
@@ -49,13 +50,14 @@ class PreinscipcionController extends Controller{
      */
     public function registraProspecto( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+        //$params = $request->toArray();
         $prospecto = $this->soapWrapper->call('Preinscripcion.RegistraProspectoCRMDesdePreinscripcionEnLinea', [ $params ]);
 
         if( !$prospecto ) {
             return response()->json(['messagge' => 'error']);
         }else {
-            return $prospecto->RegistraProspectoCRMDesdePreinscripcionEnLineaResult;
+            return response()->json( $prospecto->RegistraProspectoCRMDesdePreinscripcionEnLineaResult );
         }
     }
 

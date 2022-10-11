@@ -56,10 +56,12 @@ class CalculadoraController extends Controller
      */
     public function getHorarios( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+
+        //$params = $request->toArray();
 
         $horarios = $this->soapWrapper->call('Calculadora.ObtenerHorariosBecas', [ $params ]);
-        return $horarios->ObtenerHorariosBecasResult->HorariosBecasDTO;
+        return response()->json($horarios->ObtenerHorariosBecasResult->HorariosBecasDTO);
 
     }
     /**
@@ -71,10 +73,12 @@ class CalculadoraController extends Controller
 
     public function getDetalleHorarios( Request $request ){
 
-        $params = $request->toArray();
+        $params= json_decode($request->getContent(), true);
+
+        //$params = $request->toArray();
 
         $detalleHorario = $this->soapWrapper->call('Calculadora.ObtenerDetalleHorarioBeca', [ $params ]);
-        return $detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO;
+        return response()->json($detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO);
 
     }
     /**
@@ -85,10 +89,12 @@ class CalculadoraController extends Controller
      */
 
     public function updateProspectos( Request $request ){
+
+        $params= json_decode($request->getContent(), true);
         
-        $params = $request->toArray();
+        //$params = $request->toArray();
 
         $actualizaProspecto = $this->soapWrapper->call('Calculadora.ActualizaProspecto', [ $params ]);
-        return $actualizaProspecto->ActualizaProspectoResult->ActualizaProspectoDTO;
+        return response()->json($actualizaProspecto->ActualizaProspectoResult->ActualizaProspectoDTO);
     }
 }
