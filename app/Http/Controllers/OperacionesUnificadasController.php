@@ -127,10 +127,10 @@ class OperacionesUnificadasController extends Controller
 
         $params= json_decode($request->getContent(), true);
         $existeProspecto = $this->soapWrapper->call('OU.ExisteProspectoEnCRM', [ $params ]);
-        $respuesta = $existeProspecto->ExisteProspectoEnCRMResponse;
+        $respuesta = $existeProspecto->ExisteProspectoEnCRMResult;
 
-        if( empty($respuesta) || empty($respuesta->ExisteProspectoEnCRMResult) ) return response()->json($this->mensaje, 400);
-        return response()->json( $respuesta->ExisteProspectoEnCRMResult);
+        if( $respuesta == 1 ) return response()->json( $respuesta );
+        return response()->json($this->mensaje, 400);
 
     }
 
@@ -216,7 +216,7 @@ class OperacionesUnificadasController extends Controller
 
         if( $respuesta->OperacionExito == FALSE ) return response()->json( ["error" => $respuesta->MensajeError], 400 );
         return response()->json( $respuesta );
-        
+
     }
 
 }
