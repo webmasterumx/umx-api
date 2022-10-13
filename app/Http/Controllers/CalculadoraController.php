@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 
 use Artisaninweb\SoapWrapper\SoapWrapper;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 
 class CalculadoraController extends Controller
 {
     protected $soapWrapper;
+    protected $url;
+    protected $mensaje;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
+        App::environment('local') ? 
+            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/calculadoracuotas.asmx?WSDL" :
+            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/calculadoracuotas.asmx?WSDL";
+
         $this->soapWrapper = $soapWrapper;
+        $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'Calculadora', function($service){
     
             $service
-            ->wsdl( 'http://comunimex.lat/TestingWSOperacionesUnificadas/calculadoracuotas.asmx?WSDL' )
+            ->wsdl( $this->url )
             ->trace( TRUE );
     
         });
@@ -56,12 +64,12 @@ class CalculadoraController extends Controller
      */
     public function getHorarios( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
+        $params    = json_decode($request->getContent(), true);
+        $horarios  = $this->soapWrapper->call('Calculadora.ObtenerHorariosBecas', [ $params ]);
+        $respuesta = $horarios->ObtenerHorariosBecasResult;
 
-        //$params = $request->toArray();
-
-        $horarios = $this->soapWrapper->call('Calculadora.ObtenerHorariosBecas', [ $params ]);
-        return response()->json($horarios->ObtenerHorariosBecasResult->HorariosBecasDTO);
+        if( empty($respuesta) || empty($respuesta->HorariosBecasDTO) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->HorariosBecasDTO );
 
     }
     /**
@@ -73,12 +81,12 @@ class CalculadoraController extends Controller
 
     public function getDetalleHorarios( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
-
-        //$params = $request->toArray();
-
+        $params         = json_decode($request->getContent(), true);
         $detalleHorario = $this->soapWrapper->call('Calculadora.ObtenerDetalleHorarioBeca', [ $params ]);
-        return response()->json($detalleHorario->ObtenerDetalleHorarioBecaResult->DetalleHorarioBecaDTO);
+        $respuesta      = $detalleHorario->ObtenerDetalleHorarioBecaResult;
+
+        if( empty($respuesta) || empty($respuesta->DetalleHorarioBecaDTO) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->DetalleHorarioBecaDTO );
 
     }
     /**
@@ -90,11 +98,12 @@ class CalculadoraController extends Controller
 
     public function updateProspectos( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
-        
-        //$params = $request->toArray();
-
+        $params             = json_decode($request->getContent(), true);
         $actualizaProspecto = $this->soapWrapper->call('Calculadora.ActualizaProspecto', [ $params ]);
-        return response()->json($actualizaProspecto->ActualizaProspectoResult->ActualizaProspectoDTO);
+        $respuesta          =  $actualizaProspecto->ActualizaProspectoResult;
+
+        if( empty($respuesta) || empty($respuesta->ActualizaProspectoDTO) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->ActualizaProspectoDTO );
+
     }
 }
