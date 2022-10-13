@@ -3,21 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 
 class NuevoIngresoController extends Controller
 {
-
     protected $soapWrapper;
+    protected $url;
+    protected $mensaje;
 
     public function __construct(SoapWrapper $soapWrapper){
 
+        App::environment('local') ? 
+            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/Propedeutico.asmx?WSDL" :
+            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/Propedeutico.asmx?WSDL";
+
         $this->soapWrapper = $soapWrapper;
+        $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'NuevoIngreso', function($service){
     
             $service
-            ->wsdl( 'http://comunimex.lat/TestingWSOperacionesUnificadas/Propedeutico.asmx?WSDL' )
+            ->wsdl( $this->url )
             ->trace( TRUE );
     
         });
@@ -30,12 +37,12 @@ class NuevoIngresoController extends Controller
      */
     public function validaMatricula( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
+        $params    = json_decode($request->getContent(), true);
+        $valida    = $this->soapWrapper->call('NuevoIngreso.ValidacionMatricula', [ $params ] );
+        $respuesta = $valida->ValidacionMatriculaResult;
 
-        //$params = $request->toArray();
-
-        $valida = $this->soapWrapper->call('NuevoIngreso.ValidacionMatricula', [ $params ] );
-        return $valida->ValidacionMatriculaResult->EntPrope;
+        if( empty($respuesta) || empty($respuesta->EntPrope) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->EntPrope );
 
     }
 
@@ -49,15 +56,12 @@ class NuevoIngresoController extends Controller
     public function addBitacora( Request $request ){
 
         $params= json_decode($request->getContent(), true);
-
-        //$params = $request->toArray();
-
         $bitacora = $this->soapWrapper->call('NuevoIngreso.BitacoraClic', [ $params ]);
-        $resultado = $bitacora->BitacoraClicResult;
+        $respuesta = $bitacora->BitacoraClicResult;
 
-        return response()->json([
-            "resultado" => $resultado
-        ]);
+        if( $respuesta == 1 ) return response()->json( $respuesta );
+        return response()->json($this->mensaje, 400);
+    
     }
 
 
