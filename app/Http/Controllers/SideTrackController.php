@@ -28,6 +28,13 @@ class SideTrackController extends Controller
         });
     }
 
+    /**
+     * @method POST
+     * @param Request $request=array<string|int>,same as OperacionesUnificadas
+     * @param $clavemodo=2 if plantel=5 && $clavemodo=0 if plantel=2,3,4
+     * @return object
+     */
+
     public function getCarreras( Request $request){
 
         $params= json_decode($request->getContent(), true);
