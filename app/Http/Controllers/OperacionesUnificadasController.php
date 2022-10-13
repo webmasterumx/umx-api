@@ -74,7 +74,7 @@ class OperacionesUnificadasController extends Controller
         $periodos = $this->soapWrapper->call('OU.ObtenerCatalogoPeriodoEscolar', [ $params ]);
         $respuesta = $periodos->ObtenerCatalogoPeriodoEscolarResult;
 
-        if( empty($respuesta) || empty($respuesta->PlantelesDTO) ) return response()->json($this->mensaje, 400);
+        if( empty($respuesta) || empty($respuesta->PeriodosDTO) ) return response()->json($this->mensaje, 400);
         return response()->json( $respuesta->PeriodosDTO );
 
     }
