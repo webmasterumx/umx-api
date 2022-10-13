@@ -1,20 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Artisaninweb\SoapWrapper\SoapWrapper;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 
 class PreinscipcionController extends Controller{
     
     protected $soapWrapper;
+    protected $url;
+    protected $mensaje;
 
     public function __construct(SoapWrapper $soapWrapper){
+
+        App::environment('local') ? 
+            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL" :
+            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL";
+
         $this->soapWrapper = $soapWrapper;
+        $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'Preinscripcion', function($service){
     
             $service
-            ->wsdl( 'http://comunimex.lat/TestingWSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL' )
+            ->wsdl( $this->url )
             ->trace( TRUE );
     
         });
@@ -29,16 +39,12 @@ class PreinscipcionController extends Controller{
      */
     public function getPromociones( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
-        //$params = $request->toArray();
+        $params      = json_decode($request->getContent(), true);
         $promociones = $this->soapWrapper->call('Preinscripcion.ObtenerImportePromocionesPreinscripcion', [ $params ]);
+        $respuesta   = $promociones->ObtenerImportePromocionesPreinscripcionResult;
 
-        if( !$promociones ){
-            return response()->json(['messagge' => 'error']);
-        }else{
-
-            return response()->json( $promociones->ObtenerImportePromocionesPreinscripcionResult );
-        }
+        if( empty($respuesta) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta );
 
     }
     
@@ -50,15 +56,13 @@ class PreinscipcionController extends Controller{
      */
     public function registraProspecto( Request $request ){
 
-        $params= json_decode($request->getContent(), true);
-        //$params = $request->toArray();
+        $params    = json_decode($request->getContent(), true);
         $prospecto = $this->soapWrapper->call('Preinscripcion.RegistraProspectoCRMDesdePreinscripcionEnLinea', [ $params ]);
+        $respuesta = $prospecto->RegistraProspectoCRMDesdePreinscripcionEnLineaResult;
 
-        if( !$prospecto ) {
-            return response()->json(['messagge' => 'error']);
-        }else {
-            return response()->json( $prospecto->RegistraProspectoCRMDesdePreinscripcionEnLineaResult );
-        }
+        if( empty($respuesta) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta );
+
     }
 
 
