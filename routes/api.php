@@ -8,6 +8,7 @@ use App\Http\Controllers\OperacionesUnificadasController;
 use App\Http\Controllers\CalculadoraController;
 use App\Http\Controllers\NuevoIngresoController;
 use App\Http\Controllers\PreinscipcionController;
+use App\Http\Controllers\SideTrackController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -74,4 +75,11 @@ Route::controller( PreinscipcionController::class )->group( function(){
         Route::post('preinscripcion/promociones', 'getPromociones');
         Route::post('preinscripcion/agrega-prospecto', 'registraProspecto');
         
+});
+
+Route::controller( SideTrackController::class )->group( function(){
+
+    Route::post('side/carreras', 'getCarreras');
+    Route::post('side/turnos', 'getTurnos');
+
 });
