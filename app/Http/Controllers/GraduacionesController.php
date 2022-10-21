@@ -58,8 +58,8 @@ class GraduacionesController extends Controller
         $guarda = $this->soapWrapper->call('Graduaciones.IngresaMatriculaConfirmado', [ $params ]);
         $respuesta = $guarda->IngresaMatriculaConfirmadoResult;
 
-        if( $respuesta == 1 ) return response()->json( ["mensaje" => $respuesta] );
-        return response()->json(["mensanje" => "existe"]);
+        if( empty($respuesta) || empty($respuesta->Confirmados) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->Confirmados );
 
     }
 
