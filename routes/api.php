@@ -9,6 +9,7 @@ use App\Http\Controllers\CalculadoraController;
 use App\Http\Controllers\NuevoIngresoController;
 use App\Http\Controllers\PreinscipcionController;
 use App\Http\Controllers\SideTrackController;
+use App\Http\Controllers\GraduacionesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -81,5 +82,12 @@ Route::controller( SideTrackController::class )->group( function(){
 
     Route::post('side/carreras', 'getCarreras');
     Route::post('side/turnos', 'getTurnos');
+
+});
+
+Route::controller( GraduacionesController::class )->group( function(){
+
+    Route::post('graduaciones/valida-matricula',  'validaMatricula');
+    Route::post('graduaciones/guarda', 'guardaGraduado' );
 
 });
