@@ -41,7 +41,12 @@ class GraduacionesController extends Controller
         $valida    = $this->soapWrapper->call('Graduaciones.ValidaMatriculaConfirmado', [ $params ]);
         $respuesta = $valida->ValidaMatriculaConfirmadoResult;
 
-        if( empty($respuesta) || empty($respuesta->Confirmados) ) return response()->json($this->mensaje, 400);
+        if( empty($respuesta) || empty($respuesta->Confirmados) ) return response()->json([
+            "id_empresa" => '',
+            "nombre" => "",
+            "Alta" => "",
+            "encontrada" => false
+        ]);
         return response()->json( $respuesta->Confirmados );
 
     }
