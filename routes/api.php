@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\OperacionesUnificadasController;
 use App\Http\Controllers\CalculadoraController;
+use App\Http\Controllers\DiaUnimexController;
 use App\Http\Controllers\NuevoIngresoController;
 use App\Http\Controllers\PreinscipcionController;
 use App\Http\Controllers\SideTrackController;
@@ -90,4 +91,9 @@ Route::controller( GraduacionesController::class )->group( function(){
     Route::post('graduaciones/valida-matricula',  'validaMatricula');
     Route::post('graduaciones/guarda', 'guardaGraduado' );
 
+});
+
+Route::controller( DiaUnimexController::class )->group( function(){
+    Route::get('dia-unimex/escuelas', 'getEscuelas');
+    Route::post('dia-unimex/guarda-prospecto', 'saveProspecto');
 });
