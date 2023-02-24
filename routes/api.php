@@ -48,6 +48,8 @@ Route::controller(OperacionesUnificadasController::class)->group(function(){
     Route::post('proyeccion', 'addProyeccion');
     Route::post('dia-unimex', 'addDiaUnimex');
     Route::post('prospectacion', 'addProspectacion');
+    Route::get('dia-unimex/escuelas', 'getEscuelaOrigen');
+    Route::post('dia-unimex/guarda-prospecto', 'addEscuelaOrigen');
     
 
 });
@@ -91,9 +93,4 @@ Route::controller( GraduacionesController::class )->group( function(){
     Route::post('graduaciones/valida-matricula',  'validaMatricula');
     Route::post('graduaciones/guarda', 'guardaGraduado' );
 
-});
-
-Route::controller( DiaUnimexController::class )->group( function(){
-    Route::get('dia-unimex/escuelas', 'getEscuelas');
-    Route::post('dia-unimex/guarda-prospecto', 'saveProspecto');
 });
