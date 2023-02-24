@@ -190,6 +190,11 @@ class OperacionesUnificadasController extends Controller
      * @return string if MensajeError
      */
 
+    /**
+     * dia unimex se deshabilita...
+     */
+
+    /*
     public function addDiaUnimex( Request $request ){
 
         $params= json_decode($request->getContent(), true);
@@ -199,6 +204,26 @@ class OperacionesUnificadasController extends Controller
         if( $respuesta->OperacionExito == FALSE ) return response()->json( ["error" => $respuesta->MensajeError], 400 );
         return response()->json( $respuesta );
 
+    }
+    */
+
+    public function getEscuelaOrigen(){
+
+        $escuela = $this->soapWrapper->call('OU.ObtenerCatalogoEscuelaOrigen');
+        $respuesta =  $escuela->ObtenerCatalogoEscuelaOrigenResult;
+
+        if( empty($respuesta) || empty($respuesta->Escuelas) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->Escuelas);
+    }
+
+    public function addEscuelaOrigen( Request $request ){
+
+        $params = json_decode( $request->getContent(), true);
+        $addEscuela = $this->soapWrapper->call('OU.ActualizarEscuelaOrigen', [$params]);
+        $respuesta = $addEscuela->ActualizarEscuelaOrigenResult;
+
+        if($respuesta == 0) return response()->json( ["estatus" => $respuesta], 400 );
+        return response()->json( ["estatus" => $respuesta] );
     }
 
     /**
