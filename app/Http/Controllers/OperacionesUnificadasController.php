@@ -226,6 +226,25 @@ class OperacionesUnificadasController extends Controller
         return response()->json( ["estatus" => $respuesta] );
     }
 
+    public function getCarrerasDiaUnimex( Request $request){
+        $params = json_decode( $request->getContent(), true);
+        $carrerasDia = $this->soapWrapper->call('OU.ObtenerCatalogoCarrerasSinMeta', [$params]);
+        $respuesta = $carrerasDia->ObtenerCatalogoCarrerasSinMetaResult;
+
+        if( empty($respuesta) || empty($respuesta->CarerrasDTO) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->CarerrasDTO );
+
+    }
+
+    public function getHorariosDiaUnimex( Request $request ){
+        $params = json_decode( $request->getContent(), true);
+        $horariosDia = $this->soapWrapper->call('OU.ObtenerCatalogoTurnosSinMeta', [$params]);
+        $respuesta = $horariosDia->ObtenerCatalogoTurnosSinMetaResult;
+
+        if( empty($respuesta) || empty($respuesta->TurnosDTO) ) return response()->json($this->mensaje, 400);
+        return response()->json( $respuesta->TurnosDTO );
+    }
+
     /**
      * @method POST
      * @param array
