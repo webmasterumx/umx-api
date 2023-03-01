@@ -50,6 +50,8 @@ Route::controller(OperacionesUnificadasController::class)->group(function(){
     Route::post('prospectacion', 'addProspectacion');
     Route::get('dia-unimex/escuelas', 'getEscuelaOrigen');
     Route::post('dia-unimex/guarda-prospecto', 'addEscuelaOrigen');
+    Route::post('dia-unimex/carreras', 'getCarrerasDiaUnimex' );    
+    Route::post('dia-unimex/turnos', 'getHorariosDiaUnimex');
     
 
 });
