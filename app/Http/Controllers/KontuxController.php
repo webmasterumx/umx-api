@@ -91,8 +91,8 @@ class KontuxController extends Controller
     public function getTurnos( Request $request){
 
         $params= json_decode($request->getContent(), true);
-        $turnos = $this->soapWrapper->call('KNTX.TraesTurnos', [ $params ]);
-        $respuesta = $turnos->TraesTurnosResult;
+        $turnos = $this->soapWrapper->call('KNTX.TraeTurno', [ $params ]);
+        $respuesta = $turnos->TraeTurnoResult;
 
         if( empty($respuesta) || empty($respuesta->TurnosDTO) ) return response()->json($this->mensaje, 400);
         return response()->json( $respuesta->TurnosDTO);
