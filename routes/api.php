@@ -11,6 +11,8 @@ use App\Http\Controllers\NuevoIngresoController;
 use App\Http\Controllers\PreinscipcionController;
 use App\Http\Controllers\SideTrackController;
 use App\Http\Controllers\GraduacionesController;
+use App\Http\Controllers\KontuxController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -95,4 +97,12 @@ Route::controller( GraduacionesController::class )->group( function(){
     Route::post('graduaciones/valida-matricula',  'validaMatricula');
     Route::post('graduaciones/guarda', 'guardaGraduado' );
 
+});
+
+Route::controller( KontuxController::class )->group( function(){
+    Route::get('kontux/planteles', 'getPlanteles');
+    Route::get('kontux/niveles', 'getNiveles');
+    Route::post('kontux/carreras', 'getCarreras');
+    Route::post('kontux/turnos', 'getTurnos');
+    Route::post('kontux/valida-celular', 'validaCelular');
 });
