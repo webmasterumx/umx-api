@@ -131,4 +131,13 @@ class KontuxController extends Controller
             return response(['error' => 'archivo no encontrado'], 400);
         }
     }
+
+    public function getUbicacionPlantel( Request $request ){
+        $params = $request->all();
+        $ubicacionPlantel = $this->soapWrapper->call('KNTX.ObtenerUbicacionPlantel', [$params]);
+        $respuesta = $ubicacionPlantel->ObtenerUbicacionPlantelResult;
+
+        if( empty($respuesta) || empty($respuesta->PlantelKontux)) return response()->json( $this->mensaje, 400);
+        return response()->json( $respuesta->PlantelKontux);
+    }
 }
