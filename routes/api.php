@@ -118,4 +118,5 @@ Route::controller( KontuxController::class )->group( function(){
         }
     });
     Route::post('kontux/documentos', 'getFiles');
+    Route::post('kontux/obtener-ubicacion-plantel', 'getUbicacionPlantel');
 });
