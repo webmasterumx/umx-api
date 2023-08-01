@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class KontuxController extends Controller
 {
@@ -106,5 +107,28 @@ class KontuxController extends Controller
 
         if( empty($respuesta) || empty($respuesta->ProspectoKontux) ) return response()->json($this->mensaje, 400);
         return response()->json( $respuesta->ProspectoKontux);
+    }
+
+    public function getFiles( Request $request){
+
+        $planteles = [
+            2 => 'izcalli',
+            3 => 'satelite',
+            4 => 'polanco',
+            5 => 'veracruz'
+        ];
+        $params = json_decode( $request->getContent(), true);
+
+        if( $params['tipo'] == 'archivo'){
+            $file = Storage::disk('public')
+                    ->get( $planteles[$params['clavePlantel']].'/'.$params['ubicacion'].'/'.$params['claveCarrera'].'.pdf');
+            return( response($file, 200))->header('Content-Type', 'application/pdf');
+        }else if( $params['tipo'] == 'video' ){
+            $file = Storage::disk('public')
+                    ->get( $planteles[$params['clavePlantel']].'/'.$params['ubicacion'].'/'.$params['claveCarrera'].'.mp4');
+            return( response($file, 200))->header('Content-Type', 'video/mp4');
+        }else{
+            return response(['error' => 'archivo no encontrado'], 400);
+        }
     }
 }
