@@ -15,7 +15,7 @@ class OperacionesUnificadasController extends Controller
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        $this->baseUrl = env('APP_WS_URL');                
+        $this->baseUrl = config('ws.url');                
         $this->url = $this->baseUrl."OperacionesUnificadas.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [

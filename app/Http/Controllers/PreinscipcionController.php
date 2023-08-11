@@ -14,7 +14,7 @@ class PreinscipcionController extends Controller{
 
     public function __construct(SoapWrapper $soapWrapper){
 
-        $this->baseUrl = env('APP_WS_URL');
+        $this->baseUrl = config('ws.url');
         $this->url = $this->baseUrl."preinscripcionenlinea.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];

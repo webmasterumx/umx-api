@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use Artisaninweb\SoapWrapper\SoapWrapper;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +14,7 @@ class KontuxController extends Controller
 
     public function __construct( SoapWrapper $soapWrapper) {
 
-        $this->baseUrl = env('APP_WS_URL');
+        $this->baseUrl = config('ws.url');
         $this->url = $this->baseUrl."Kontux.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
@@ -40,7 +39,7 @@ class KontuxController extends Controller
         $respuesta = $planteles->TraePlantelResult;
 
         if( empty($respuesta) || empty($respuesta->PlantelesDTO) ) return response()->json($this->mensaje, 400);
-        return response()->json( $respuesta->PlantelesDTO );    
+        return response()->json( $respuesta->PlantelesDTO );
     }
 
     /**

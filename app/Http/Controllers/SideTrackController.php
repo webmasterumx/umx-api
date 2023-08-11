@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Artisaninweb\SoapWrapper\SoapWrapper;
-use Illuminate\Support\Facades\App;
 
 class SideTrackController extends Controller
 {
@@ -15,7 +14,7 @@ class SideTrackController extends Controller
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        $this->baseURL = env('APP_WS_URL');
+        $this->baseURL = config('ws.url');
         $this->url = $this->baseURL."SideTrack.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
