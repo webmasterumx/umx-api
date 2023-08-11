@@ -116,4 +116,22 @@ class KontuxController extends Controller
         if( empty($respuesta) || empty($respuesta->PlantelKontux)) return response()->json( $this->mensaje, 400);
         return response()->json( $respuesta->PlantelKontux);
     }
+    public function getDocumentos( Request $request){
+        $params = $request->all();
+        $documentos =  $this->soapWrapper->call('KNTX.TraeDocumentosKontux', [$params]);
+        $respuesta = $documentos->TraeDocumentosKontuxResult;
+
+        if( empty($respuesta) || empty($respuesta->DocumentosKontux)) return response()->json( $this->mensaje, 400);
+        return response()->json( $respuesta->DocumentosKontux);
+    }
+
+    public function getDocumentosNivel( Request $request){
+        $params = $request->all();
+        $documentosNivel = $this->soapWrapper->call('KNTX.TraeDocumentosKontuxNivel', [$params]);
+        $respuesta = $documentosNivel->TraeDocumentosKontuxNivelResult;
+
+        if( empty($respuesta) || empty($respuesta->DocumentosKontux)) return response()->json( $this->mensaje, 400);
+        return response()->json( $respuesta->DocumentosKontux);
+    }
+
 }
