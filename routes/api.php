@@ -106,4 +106,6 @@ Route::controller( KontuxController::class )->group( function(){
     Route::post('kontux/turnos', 'getTurnos');
     Route::post('kontux/valida-celular', 'validaCelular');
     Route::post('kontux/obtener-ubicacion-plantel', 'getUbicacionPlantel');
+    Route::post('kontux/obtener-documentos', 'getDocumentos');
+    Route::post('kontux/obtener-documentos-nivel', 'getDocumentosNivel');
 });
