@@ -11,22 +11,19 @@ class NuevoIngresoController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper){
 
-        App::environment('local') ? 
-            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/Propedeutico.asmx?WSDL" :
-            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/Propedeutico.asmx?WSDL";
-
+        $this->baseUrl = env('APP_WS_URL');
+        $this->url = $this->baseUrl."Propedeutico.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'NuevoIngreso', function($service){
-    
             $service
             ->wsdl( $this->url )
             ->trace( TRUE );
-    
         });
     }
 

@@ -11,14 +11,12 @@ class KontuxController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseUrl;
 
     public function __construct( SoapWrapper $soapWrapper) {
-        
-        /**
-         * only use this for testing, then create the function with local variable
-         */
 
-        $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/Kontux.asmx?WSDL";
+        $this->baseUrl = env('APP_WS_URL');
+        $this->url = $this->baseUrl."Kontux.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
             "error" => "No hay datos disponibles"

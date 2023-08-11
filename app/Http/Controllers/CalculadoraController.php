@@ -11,22 +11,18 @@ class CalculadoraController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        App::environment('local') ? 
-            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/calculadoracuotas.asmx?WSDL" :
-            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/calculadoracuotas.asmx?WSDL";
-
+        $this->baseUrl = env('APP_WS_URL');
+        $this->url = $this->baseUrl."calculadoracuotas.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
-        
         $this->soapWrapper->add( 'Calculadora', function($service){
-    
             $service
             ->wsdl( $this->url )
             ->trace( TRUE );
-    
         });
 
     }
