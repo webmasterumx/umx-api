@@ -11,13 +11,12 @@ class SideTrackController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        App::environment('local') ? 
-            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/SideTrack.asmx?WSDL" :
-            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/SideTrack.asmx?WSDL";
-
+        $this->baseUrl = config('app.ws_url');
+        $this->url = $this->baseUrl."SideTrack.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
             "error" => "No hay datos disponibles"

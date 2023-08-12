@@ -11,13 +11,12 @@ class PreinscipcionController extends Controller{
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper){
 
-        App::environment('local') ? 
-            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL" :
-            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL";
-
+        $this->baseUrl = config('app.ws_url');
+        $this->url = $this->baseUrl."preinscripcionenlinea.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
         

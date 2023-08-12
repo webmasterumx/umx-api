@@ -11,13 +11,12 @@ class OperacionesUnificadasController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
+    protected $baseURL;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        App::environment('local') ? 
-            $this->url = "http://comunimex.lat/TestingWSOperacionesUnificadas/OperacionesUnificadas.asmx?WSDL" :
-            $this->url = "http://comunimex.lat/WSOperacionesUnificadas/OperacionesUnificadas.asmx?WSDL";
-
+        $this->baseURL = config('app.ws_url');
+        $this->url = $this->baseURL."OperacionesUnificadas.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
             "error" => "No hay datos disponibles"
