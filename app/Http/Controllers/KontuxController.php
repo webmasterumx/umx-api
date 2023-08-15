@@ -155,4 +155,40 @@ class KontuxController extends Controller
         return response()->json( $respuesta->DocumentosKontux);
     }
 
+    public function updatePlantel( Request $request){
+        $params = $request->all();
+        $actualizaPlantel = $this->soapWrapper->call('KNTX.ActualizaPlantel', [$params]);
+        $respuesta = $actualizaPlantel->ActualizaPlantelResult;
+
+        if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
+        return response()->json(['respuesta' => $respuesta]);
+    }
+
+    public function updateNivel( Request $request){
+        $params = $request->all();
+        $actualizaNivel = $this->soapWrapper->call('KNTX.ActualizaNivel', [$params]);
+        $respuesta = $actualizaNivel->ActualizaNivelResult;
+
+        if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
+        return response()->json(['respuesta' => $respuesta]);
+    }
+
+    public function updateCarrera( Request $request){
+        $params = $request->all();
+        $actualizaCarrera = $this->soapWrapper->call('KNTX.ActualizaCarrera', [$params]);
+        $respuesta = $actualizaCarrera->ActualizaCarreraResult;
+
+        if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
+        return response()->json(['respuesta' => $respuesta]);
+    }
+
+    public function updateTurno( Request $request){
+        $params = $request->all();
+        $actualizaTurno = $this->soapWrapper->call('KNTX.ActualizaTurno', [$params]);
+        $respuesta = $actualizaTurno->ActualizaTurnoResult;
+
+        if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
+        return response()->json(['respuesta' => $respuesta]);
+    }
+
 }
