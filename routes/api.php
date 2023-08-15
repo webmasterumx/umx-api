@@ -121,4 +121,8 @@ Route::controller( KontuxController::class )->group( function(){
     Route::post('kontux/obtener-ubicacion-plantel', 'getUbicacionPlantel');
     Route::post('kontux/obtener-documentos', 'getDocumentos');
     Route::post('kontux/obtener-documentos-nivel', 'getDocumentosNivel');
+    Route::post('kontux/actualiza-plantel', 'updatePlantel');
+    Route::post('kontux/actualiza-nivel', 'updateNivel');
+    Route::post('kontux/actualiza-carrera', 'updateCarrera');
+    Route::post('kontux/actualiza-turno', 'updateTurno');
 });
