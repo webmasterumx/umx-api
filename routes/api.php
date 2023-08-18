@@ -12,6 +12,7 @@ use App\Http\Controllers\PreinscipcionController;
 use App\Http\Controllers\SideTrackController;
 use App\Http\Controllers\GraduacionesController;
 use App\Http\Controllers\KontuxController;
+use App\Http\Controllers\ZapierController;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -125,4 +126,8 @@ Route::controller( KontuxController::class )->group( function(){
     Route::post('kontux/actualiza-nivel', 'updateNivel');
     Route::post('kontux/actualiza-carrera', 'updateCarrera');
     Route::post('kontux/actualiza-turno', 'updateTurno');
+});
+
+Route::controller( ZapierController::class )->group( function(){
+    Route::post('zapier/facebook/agrega-prospecto', 'facebookRegister');
 });
