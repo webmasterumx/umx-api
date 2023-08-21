@@ -27,6 +27,12 @@ class ZapierController extends Controller
 
     }
 
+    /**
+     * Guarda los prospecto provenientes de los formularios de Facebook
+     * @param array|object Contiene los datos desde zapier
+     * @return object respuesta
+     */
+
     public function facebookRegister( Request $request ){
 
         $params = $request->all();
