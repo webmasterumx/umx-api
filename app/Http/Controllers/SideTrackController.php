@@ -14,7 +14,7 @@ class SideTrackController extends Controller
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        $this->baseURL = config('ws.url');
+        $this->baseURL = config('app.ws_url');
         $this->url = $this->baseURL."SideTrack.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [

@@ -14,7 +14,7 @@ class KontuxController extends Controller
 
     public function __construct( SoapWrapper $soapWrapper) {
 
-        $this->baseUrl = config('ws.url');
+        $this->baseUrl = config('app.ws_url');
         $this->url = $this->baseUrl."Kontux.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
