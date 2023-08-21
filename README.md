@@ -1,3 +1,31 @@
+# UNIMEX API REST
+
+Esto proyecto fue realizado con la finalidad de poder consumir los SOAP Services a través de una API REST, la cual nos ayudaría a tener un campo más amplio en la creación de aplicaiones web, consumo de terceros a nustros datos, integración de aplicaciones de terceros entre otros.
+
+En este sentido, actualmente se tienen los siguientes SOAP: 
+
+- [OperacionesUnificadas](http://comunimex.lat/TestingWSOperacionesUnificadas/OperacionesUnificadas.asmx?WSDL)
+- [SideTrack](http://comunimex.lat/TestingWSOperacionesUnificadas/SideTrack.asmx?WSDL)
+- [Kontux](http://comunimex.lat/TestingWSOperacionesUnificadas/Kontux.asmx?WSDL)
+- [Preinscripcion](http://comunimex.lat/TestingWSOperacionesUnificadas/preinscripcionenlinea.asmx?WSDL)
+- [Calculadora de Cuotas](http://comunimex.lat/TestingWSOperacionesUnificadas/calculadoracuotas.asmx?WSDL)
+- [Propedeutico](http://comunimex.lat/TestingWSOperacionesUnificadas/propedeutico.asmx?WSDL)
+- [Adview](http://comunimex.lat/TestingWSOperacionesUnificadas/Adview.asmx?WSDL)
+
+Todos y cada uno de estos servicios ya esta integrado.
+
+Cada `Controller File` es un servicio, y dentro de cada `ClassController` tiene sus `public functions` que son cada uno de los métodos
+
+Cada `ClassController` tiene su `__constructor()`, el cual invoca una libreria llamada *SoapWrapper*, la cual se encarga de conectar la API con los SOAP service.
+
+>[Acerca de Laravel SOAP](https://github.com/notfalsedev/laravel-soap)
+
+## Routes
+
+Las rutas de la API estan dentro del archivo **routes/api.php**, cada frupo de rutas es un `Controller`, y solo se reciben peticiones **POST** y **GET**
+
+***
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
