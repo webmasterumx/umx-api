@@ -29,8 +29,9 @@ class KontuxController extends Controller
 
     /**
      * 
-     * @return array of planteles
-     * @method GET 
+     * Obtiene los planteles del servicio kontux
+     * @return array de los planteles de unimex
+     * 
      */
     
      public function getPlanteles(){
@@ -43,8 +44,9 @@ class KontuxController extends Controller
     }
 
     /**
-     * function to get niveles with params method
-     * @param object of propieties from de WebService
+     * Obtiene los niveles del servicio Kontux
+     * @param object|array Request $request
+     * @return array 
      * 
      */
 
@@ -60,8 +62,9 @@ class KontuxController extends Controller
     }
 
     /**
-     * all functions above
-     * @param string $plantel, $nivel, $periodo, $carrera
+     * Obtiene los periodos segun la meta de MKT
+     * @param @param object|array Request $request
+     * @return array|object Puede ser un objeto siempre y cuando solo haya un periodo en la oferta
      */
 
     public function getPeriodos( Request $request){
@@ -75,6 +78,11 @@ class KontuxController extends Controller
 
     }
 
+    /**
+     * Obtiene las Carreras de Kontux Service
+     * @param object|array Request $request
+     * @return array|object Puede ser un objeto cuando solo haya una carrera ofertada
+     */
     public function getCarreras( Request $request){
 
         $params= json_decode($request->getContent(), true);
@@ -85,6 +93,12 @@ class KontuxController extends Controller
         return response()->json( $respuesta->CarerrasDTO);
 
     }
+
+    /**
+     * Obtiene los Turnos(Horarios) desde Kontux Service
+     * @param object|array Request $request
+     * @return array|object Puede ser un objeto si solo hay un turno disponible segun la carrera
+     */
 
     public function getTurnos( Request $request){
 
@@ -97,6 +111,12 @@ class KontuxController extends Controller
 
     }
 
+    /**
+     * Valida si ya existe el propspecto mediante el correo electronico
+     * @param mixed correo electronico
+     * @return array Datos del prospecto
+     */
+
     public function validaCelular( Request $request ){
         $params = json_decode( $request->getContent(), true);
         $validacion = $this->soapWrapper->call('KNTX.ValidaCelular', [$params]);
@@ -105,6 +125,12 @@ class KontuxController extends Controller
         if( empty($respuesta) || empty($respuesta->ProspectoKontux) ) return response()->json($this->mensaje, 400);
         return response()->json( $respuesta->ProspectoKontux);
     }
+
+    /**
+     * Function de pruba para obtener los archivos del Storage.
+     * @param object|array Request $request
+     * @return mixed contiene la rua del archivo
+     */
 
     public function getFiles( Request $request){
 
@@ -129,6 +155,12 @@ class KontuxController extends Controller
         }
     }
 
+    /**
+     * Obtienen la ubicacion y demas datos del plantel seleccionado en la aplicación
+     * @param array|object con la clave del plantel
+     * @return array datos del plantel seleccionado
+     */
+
     public function getUbicacionPlantel( Request $request ){
         $params = $request->all();
         $ubicacionPlantel = $this->soapWrapper->call('KNTX.ObtenerUbicacionPlantel', [$params]);
@@ -137,6 +169,12 @@ class KontuxController extends Controller
         if( empty($respuesta) || empty($respuesta->PlantelKontux)) return response()->json( $this->mensaje, 400);
         return response()->json( $respuesta->PlantelKontux);
     }
+
+    /**
+     * Obtiene las rutas del documento a mostrar en la aplicación
+     * @param array Debe contener plantel, nivel, carrera, turno y tipo de documento
+     * @return array Contiene la ruta del archivo
+     */
     public function getDocumentos( Request $request){
         $params = $request->all();
         $documentos =  $this->soapWrapper->call('KNTX.TraeDocumentosKontux', [$params]);
@@ -145,6 +183,12 @@ class KontuxController extends Controller
         if( empty($respuesta) || empty($respuesta->DocumentosKontux)) return response()->json( $this->mensaje, 400);
         return response()->json( $respuesta->DocumentosKontux);
     }
+
+    /**
+     * Obtiene la  ruta del documento segun el nivel seleccionado
+     * @param array Contiene plantel, nivel y tipo de documento
+     * @return array Contiene la ruta del documento segun el nivel seleccionado
+     */
 
     public function getDocumentosNivel( Request $request){
         $params = $request->all();
@@ -155,6 +199,12 @@ class KontuxController extends Controller
         return response()->json( $respuesta->DocumentosKontux);
     }
 
+    /**
+     * Actualiza el plantel del prospecto
+     * @param array Contiene folioCRM y clavePlantel
+     * @return boolean
+     */
+
     public function updatePlantel( Request $request){
         $params = $request->all();
         $actualizaPlantel = $this->soapWrapper->call('KNTX.ActualizaPlantel', [$params]);
@@ -163,6 +213,12 @@ class KontuxController extends Controller
         if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
         return response()->json(['respuesta' => $respuesta]);
     }
+
+    /**
+     * ACtualiza el nivel del prospecto
+     * @param array Contiene folioCRM y clavePlantel
+     * @return boolean
+     */
 
     public function updateNivel( Request $request){
         $params = $request->all();
@@ -173,6 +229,12 @@ class KontuxController extends Controller
         return response()->json(['respuesta' => $respuesta]);
     }
 
+    /**
+     * Actualiza la carrera del prospecto
+     * @param array Contiene folioCRM y clavePlantel
+     * @return boolean
+     */
+
     public function updateCarrera( Request $request){
         $params = $request->all();
         $actualizaCarrera = $this->soapWrapper->call('KNTX.ActualizaCarrera', [$params]);
@@ -181,6 +243,12 @@ class KontuxController extends Controller
         if( empty($respuesta) || !$respuesta ) return response()->json( $this->mensaje, 400);
         return response()->json(['respuesta' => $respuesta]);
     }
+
+    /**
+     * Actualiza el turno del prospecto
+     * @param array Contiene folioCRM y clavePlantel, claveTurno
+     * @return boolean
+     */
 
     public function updateTurno( Request $request){
         $params = $request->all();
