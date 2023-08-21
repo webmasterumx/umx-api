@@ -14,18 +14,16 @@ class NuevoIngresoController extends Controller
     protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper){
-        
+
         $this->baseUrl = config('app.ws_url');
         $this->url = $this->baseUrl."Propedeutico.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'NuevoIngreso', function($service){
-    
             $service
             ->wsdl( $this->url )
             ->trace( TRUE );
-    
         });
     }
 

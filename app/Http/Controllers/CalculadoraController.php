@@ -19,13 +19,10 @@ class CalculadoraController extends Controller
         $this->url = $this->baseUrl."calculadoracuotas.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
-        
         $this->soapWrapper->add( 'Calculadora', function($service){
-    
             $service
             ->wsdl( $this->url )
             ->trace( TRUE );
-    
         });
 
     }

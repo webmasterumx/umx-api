@@ -22,7 +22,6 @@ class GraduacionesController extends Controller
         ];
         
         $this->soapWrapper->add( 'Graduaciones', function($service){
-    
             $service->wsdl( $this->url )
                     ->trace( TRUE );
         });

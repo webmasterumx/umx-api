@@ -4,19 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Artisaninweb\SoapWrapper\SoapWrapper;
-use Illuminate\Support\Facades\App;
 
 class SideTrackController extends Controller
 {
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
-    protected $baseUrl;
+    protected $baseURL;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        $this->baseUrl = config('app.ws_url');
-        $this->url = $this->baseUrl."SideTrack.asmx?WSDL";
+        $this->baseURL = config('app.ws_url');
+        $this->url = $this->baseURL."SideTrack.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
             "error" => "No hay datos disponibles"

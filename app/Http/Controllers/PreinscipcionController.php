@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Artisaninweb\SoapWrapper\SoapWrapper;
-use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 
 class PreinscipcionController extends Controller{
@@ -21,11 +20,9 @@ class PreinscipcionController extends Controller{
         $this->mensaje = [ "error" => "No hay datos disponibles" ];
         
         $this->soapWrapper->add( 'Preinscripcion', function($service){
-    
             $service
             ->wsdl( $this->url )
             ->trace( TRUE );
-    
         });
 
     }

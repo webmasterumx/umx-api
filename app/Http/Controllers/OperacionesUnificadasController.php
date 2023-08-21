@@ -11,19 +11,18 @@ class OperacionesUnificadasController extends Controller
     protected $soapWrapper;
     protected $url;
     protected $mensaje;
-    protected $baseURL;
+    protected $baseUrl;
 
     public function __construct(SoapWrapper $soapWrapper)
     {
-        $this->baseURL = config('app.ws_url');
-        $this->url = $this->baseURL."OperacionesUnificadas.asmx?WSDL";
+        $this->baseUrl = config('app.ws_url');                
+        $this->url = $this->baseUrl."OperacionesUnificadas.asmx?WSDL";
         $this->soapWrapper = $soapWrapper;
         $this->mensaje = [
             "error" => "No hay datos disponibles"
         ];
         
         $this->soapWrapper->add( 'OU', function($service){
-    
             $service->wsdl( $this->url )
                     ->trace( TRUE );
         });

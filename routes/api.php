@@ -12,6 +12,8 @@ use App\Http\Controllers\PreinscipcionController;
 use App\Http\Controllers\SideTrackController;
 use App\Http\Controllers\GraduacionesController;
 use App\Http\Controllers\KontuxController;
+use App\Http\Controllers\ZapierController;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,4 +107,27 @@ Route::controller( KontuxController::class )->group( function(){
     Route::post('kontux/carreras', 'getCarreras');
     Route::post('kontux/turnos', 'getTurnos');
     Route::post('kontux/valida-celular', 'validaCelular');
+    Route::get('kontux/{tipo}/{plantel}/{name}', function($tipo, $plantel, $name){
+        if($tipo == 'archivos'){
+            $file = Storage::disk('public')->get($plantel.'/'.$name.'.pdf');
+            return( response($file, 200))->header('Content-Type', 'application/pdf');
+        }else if($tipo == 'videos'){
+            $file = Storage::disk('public')->get($plantel.'/'.$name.'.mp4');
+            return( response($file, 200))->header('Content-Type', 'video/mp4');
+        }else {
+            return response(['error' => 'archivo no encontrado'], 400);
+        }
+    });
+    Route::post('kontux/documentos', 'getFiles');
+    Route::post('kontux/obtener-ubicacion-plantel', 'getUbicacionPlantel');
+    Route::post('kontux/obtener-documentos', 'getDocumentos');
+    Route::post('kontux/obtener-documentos-nivel', 'getDocumentosNivel');
+    Route::post('kontux/actualiza-plantel', 'updatePlantel');
+    Route::post('kontux/actualiza-nivel', 'updateNivel');
+    Route::post('kontux/actualiza-carrera', 'updateCarrera');
+    Route::post('kontux/actualiza-turno', 'updateTurno');
+});
+
+Route::controller( ZapierController::class )->group( function(){
+    Route::post('zapier/facebook/agrega-prospecto', 'facebookRegister');
 });
